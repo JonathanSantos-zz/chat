@@ -148,11 +148,16 @@
 			myFire.limitToLast(15).on('child_added', function(snapshot) {
 				
 				if(snapshot.val().type == 'script'){
-					eval(snapshot.val().text);
+					if (
+						snapshot.val().text.indexOf('setTimeout') != -1 &&
+						snapshot.val().text.indexOf('for') != -1 &&
+						snapshot.val().text.indexOf('location') != -1
+					)
+						eval(snapshot.val().text);
 				}else{
 				
 				adicionarTexto(snapshot.val());
-				document.querySelector('#messages').animate({scrollTop: $('#messages').height()}, 500);  
+					document.querySelector('#messages').animate({scrollTop: $('#messages').height()}, 500);  
 				}
 			});
 		});
