@@ -139,6 +139,13 @@
 
 			var fn = ['Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'Sarrada'];
 			var ln = ['do bonde', 'Escobar', 'Candido portinare', 'Hard', 'Gay', 'of Bel Air', 'que mora logo ali', 'no ar', 'carrero', 'Tranquilino'];
+			
+			var cores = ['4aaf9a', '614342', 'c99f5d', 'afc3de', 'a15f7f', '0c4e89', 'f8aa94'];
+			
+			if(!localStorage.getItem('cor_u')) {
+				var cor = cores[Math.floor(Math.random() * cores.length)];
+				localStorage.setItem('cor_u', )
+			}
 
 			if(localStorage.getItem('nome_u')){
 				return localStorage.getItem('nome_u');
@@ -160,6 +167,7 @@
 
 			var spanUsuario = document.createElement('span');
 			spanUsuario.setAttribute('class', 'usuario');
+			spanUsuario.setAttribute('style', 'color: #' + localStorage.getItem(''));
 
 			var spanMessage = document.createElement('span');
 			spanMessage.setAttribute('class', 'messages');
