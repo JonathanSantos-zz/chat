@@ -97,6 +97,14 @@
 				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
 				localStorage.setItem('nome_u', nome);
 			}
+			
+			if(!localStorage.getItem('nome_u')){
+				
+				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
+				localStorage.setItem('nome_u', nome);
+			}
+			
+			return localStorage.getItem('nome_u');
 		};
 		var randomColor = function(){
 			var cores = ['FF2194', 'C821FF', '3F21FF', '67DBCE', 'FC4955', '209E2A', 'F58E27', 'C0E334', 'FF0000'];
