@@ -124,21 +124,27 @@
 						$('#messages').empty();
 					}else if(value.indexOf('script|') != -1){
 						value = value.replace('script|','');
-						eval(value);
+						myFire.push({name: 'Script run!', text: value, color : randomColor(), type : 'script'});
 					}else{
 						if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
 							value = '<img style="width: 90%;" src="'+value+'"></img>';
 						}
 						if(value.trim().length > 1){
-							myFire.push({name: randomName(), text: value, color : randomColor()});
+							myFire.push({name: randomName(), text: value, color : randomColor(), type : 'message'});
 						}
 					}
 					$(this).val('');
 				}
 			});
 			myFire.limitToLast(15).on('child_added', function(snapshot) {
+				
+				if(snapshot.val().type == 'script'){
+					eval(snapshot.val().text);
+				}else{
+				
 				adicionarTexto(snapshot.val());
 				document.querySelector('#messages').animate({scrollTop: $('#messages').height()}, 500);  
+				}
 			});
 		});
 	</script>
