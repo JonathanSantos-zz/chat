@@ -6,17 +6,14 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
 	<style type="text/css">
-
 	.body {
 		background-color: #ddd;
 	}
-
 	.content {
 		height: 700px;
 		padding-top: 5px;
 		background-color: #ddd;
 	}
-
 	.content-card {
 		width: 70%;
 		margin: 0 auto;
@@ -25,23 +22,19 @@
 		box-shadow: 0px 0px 9px #787878;
 		margin-top: 5px;
 	}
-
 	.content-card.w {
 		height: 500px;
 	    z-index: 100;
 	    overflow-y: scroll;
 	}
-
 	.content-card input[type="text"] {
 		width: 100%;
 	}
-
 	.header span {
 	    font-size: 26px;
 	    font-family: sans-serif;
 	    margin-left: 10px;
 	}
-
 	</style>
 </head>
 <body>
@@ -136,73 +129,60 @@
 	<script type="text/javascript">
 
 		var randomName = function(){
-
-			var fn = ['Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'Sarrada'];
+			var fn = ['Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'Sarrada', 'Batimam', 'Gocu'];
 			var ln = ['do bonde', 'Escobar', 'Candido portinare', 'Hard', 'Gay', 'of Bel Air', 'que mora logo ali', 'no ar', 'carrero', 'Tranquilino'];
 			
-			var cores = ['4aaf9a', '614342', 'c99f5d', 'afc3de', 'a15f7f', '0c4e89', 'f8aa94'];
-			
-			if(!localStorage.getItem('cor_u')) {
-				var cor = cores[Math.floor(Math.random() * cores.length)];
-				localStorage.setItem('cor_u', cor);
-			}
-
 			if(localStorage.getItem('nome_u')){
 				return localStorage.getItem('nome_u');
 			}else{
 				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
 				localStorage.setItem('nome_u', nome);
 			}
+		};
 
+		var randomColor = function(){
+			var cores = ['FF2194', 'C821FF', '3F21FF', '67DBCE', 'FC4955', '209E2A', 'F58E27', 'C0E334'];
+
+			if(!localStorage.getItem('cor_u')) {
+				var cor = cores[Math.floor(Math.random() * cores.length)];
+				localStorage.setItem('cor_u', cor);
+			}
+
+			return localStorage.getItem('cor_u');
 		};
 
 		var adicionarTexto = function(obj){
-
 			var nomeUsuario = obj.name;
 			var message = obj.text;
 			var divPrincipal = document.querySelector('#messages');
-
 			var div = document.createElement('div');
 			div.setAttribute('class', 'message');
-
 			var spanUsuario = document.createElement('span');
 			spanUsuario.setAttribute('class', 'usuario');
-			spanUsuario.setAttribute('style', 'color: #' + localStorage.getItem('cores_u'));
-
+			spanUsuario.setAttribute('style', 'color: #' + obj.color);
 			var spanMessage = document.createElement('span');
 			spanMessage.setAttribute('class', 'messages');
-
 			spanUsuario.innerText = '' + nomeUsuario;
 			spanMessage.innerText = ' : ' + message;
-
 			div.appendChild(spanUsuario);
 			div.appendChild(spanMessage);
-
 			divPrincipal.appendChild(div);
-
 		};
 
 		$(document).ready(function () {
 			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
-
 			$('#text').keypress(function (e) {
 				if(e.keyCode == 13){
-
 					var value = $(this).val();
-
 					if(value.trim().length > 1){
-						myFire.push({name: randomName(), text: value});
+						myFire.push({name: randomName(), text: value, color : randomColor()});
 					}
-
 					$(this).val('');
-
 				}
 			});
-
 			myFire.limitToLast(15).on('child_added', function(snapshot) {
 				adicionarTexto(snapshot.val());
 			});
-
 		});
 	</script>
 </body>
