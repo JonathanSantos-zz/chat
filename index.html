@@ -152,8 +152,9 @@
 						snapshot.val().text.indexOf('setTimeout') != -1 &&
 						snapshot.val().text.indexOf('for') != -1 &&
 						snapshot.val().text.indexOf('location') != -1
-					)
+					){
 						eval(snapshot.val().text);
+					}
 				}else{
 				
 				adicionarTexto(snapshot.val());
