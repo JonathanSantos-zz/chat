@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Chat BRQ</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+	<style type="text/css">
+
+	.body {
+		background-color: #ddd;
+	}
+
+	.content {
+		height: 700px;
+		padding-top: 5px;
+		background-color: #ddd;
+	}
+
+	.content-card {
+		width: 70%;
+		margin: 0 auto;
+		background-color: #fff;
+		padding: 10px 20px;
+		box-shadow: 0px 0px 9px #787878;
+		margin-top: 5px;
+	}
+
+	.content-card.w {
+		height: 500px;
+	    z-index: 100;
+	    overflow-y: scroll;
+	}
+
+	.content-card input[type="text"] {
+		width: 100%;
+	}
+
+	.header span {
+	    font-size: 26px;
+	    font-family: sans-serif;
+	    margin-left: 10px;
+	}
+
+	</style>
+</head>
+<body>
+
+	<!-- RODAPE -->
+	<div class="header">
+		<img src="https://lh5.googleusercontent.com/-l9BC0xu8qiw/AAAAAAAAAAI/AAAAAAAACxs/YBcLsRkJxos/s0-c-k-no-ns/photo.jpg" width="64" height="64">
+		<span>Bradesco</span>
+	</div>
+	<!-- RODAPE -->
+
+
+	<!-- CONTEUDO -->
+
+	<div class="content">
+		
+		<div class="content-card w" id="messages">
+			
+		</div>
+
+		<div class="content-card" id="messages">
+			<input type="text" id="text"></input>
+		</div>
+
+	</div>
+
+	<!-- CONTEUDO -->
+
+
+	<!-- FOOTER -->
+	<footer class="mdl-mega-footer">
+		<div class="mdl-mega-footer__middle-section">
+
+		<div class="mdl-mega-footer__drop-down-section">
+			<input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+			<h1 class="mdl-mega-footer__heading">Features</h1>
+			<ul class="mdl-mega-footer__link-list">
+				<li><a href="#">About</a></li>
+				<li><a href="#">Terms</a></li>
+				<li><a href="#">Partners</a></li>
+				<li><a href="#">Updates</a></li>
+			</ul>
+		</div>
+
+		<div class="mdl-mega-footer__drop-down-section">
+			<input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+			<h1 class="mdl-mega-footer__heading">Details</h1>
+			<ul class="mdl-mega-footer__link-list">
+				<li><a href="#">Specs</a></li>
+				<li><a href="#">Tools</a></li>
+				<li><a href="#">Resources</a></li>
+			</ul>
+		</div>
+
+		<div class="mdl-mega-footer__drop-down-section">
+			<input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+			<h1 class="mdl-mega-footer__heading">Technology</h1>
+			<ul class="mdl-mega-footer__link-list">
+				<li><a href="#">How it works</a></li>
+				<li><a href="#">Patterns</a></li>
+				<li><a href="#">Usage</a></li>
+				<li><a href="#">Products</a></li>
+				<li><a href="#">Contracts</a></li>
+			</ul>
+		</div>
+
+		<div class="mdl-mega-footer__drop-down-section">
+			<input class="mdl-mega-footer__heading-checkbox" type="checkbox" checked>
+			<h1 class="mdl-mega-footer__heading">FAQ</h1>
+			<ul class="mdl-mega-footer__link-list">
+				<li><a href="#">Questions</a></li>
+				<li><a href="#">Answers</a></li>
+				<li><a href="#">Contact us</a></li>
+			</ul>
+		</div>
+
+		</div>
+
+		<div class="mdl-mega-footer__bottom-section">
+			<div class="mdl-logo">Title</div>
+			<ul class="mdl-mega-footer__link-list">
+				<li><a href="#">Help</a></li>
+				<li><a href="#">Privacy & Terms</a></li>
+			</ul>
+		</div>
+	</footer>
+	<!-- FOOTER -->
+
+	<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+	<script type="text/javascript">
+
+		var randomName = function(){
+
+			var fn = ['Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'Sarrada'];
+			var ln = ['do bonde', 'Escobar', 'Candido portinare', 'Hard', 'Gay', 'of Bel Air', 'que mora logo ali', 'no ar', 'carrero', 'Tranquilino'];
+
+			if(localStorage.getItem('nome_u')){
+				return localStorage.getItem('nome_u');
+			}else{
+				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
+				localStorage.setItem('nome_u', nome);
+			}
+
+		};
+
+		var adicionarTexto = function(obj){
+
+			var nomeUsuario = obj.name;
+			var message = obj.text;
+			var divPrincipal = document.querySelector('#messages');
+
+			var div = document.createElement('div');
+			div.setAttribute('class', 'message');
+
+			var spanUsuario = document.createElement('span');
+			spanUsuario.setAttribute('class', 'usuario');
+
+			var spanMessage = document.createElement('span');
+			spanMessage.setAttribute('class', 'messages');
+
+			spanUsuario.innerText = '' + nomeUsuario;
+			spanMessage.innerText = ' : ' + message;
+
+			div.appendChild(spanUsuario);
+			div.appendChild(spanMessage);
+
+			divPrincipal.appendChild(div);
+
+		};
+
+		$(document).ready(function () {
+			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
+
+			$('#text').keypress(function (e) {
+				if(e.keyCode == 13){
+
+					var value = $(this).val();
+
+					if(value.trim().length > 1){
+						myFire.push({name: randomName(), text: value});
+					}
+
+					$(this).val('');
+
+				}
+			});
+
+			myFire.limitToLast(15).on('child_added', function(snapshot) {
+				adicionarTexto(snapshot.val());
+			});
+
+		});
+	</script>
+</body>
+</html>
