@@ -127,7 +127,6 @@
 	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 	<script type="text/javascript">
-
 		var randomName = function(){
 			var fn = ['Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'Sarrada', 'Batimam', 'Gocu'];
 			var ln = ['do bonde', 'Escobar', 'Candido portinare', 'Hard', 'Gay', 'of Bel Air', 'que mora logo ali', 'no ar', 'carrero', 'Tranquilino', 'é um fracassado', 'orientado à objeto'];
@@ -139,18 +138,14 @@
 				localStorage.setItem('nome_u', nome);
 			}
 		};
-
 		var randomColor = function(){
 			var cores = ['FF2194', 'C821FF', '3F21FF', '67DBCE', 'FC4955', '209E2A', 'F58E27', 'C0E334', 'FF0000'];
-
 			if(!localStorage.getItem('cor_u')) {
 				var cor = cores[Math.floor(Math.random() * cores.length)];
 				localStorage.setItem('cor_u', cor);
 			}
-
 			return localStorage.getItem('cor_u');
 		};
-
 		var adicionarTexto = function(obj){
 			var nomeUsuario = obj.name;
 			var message = obj.text;
@@ -163,17 +158,21 @@
 			var spanMessage = document.createElement('span');
 			spanMessage.setAttribute('class', 'messages');
 			spanUsuario.innerText = '' + nomeUsuario;
-			spanMessage.innerText = ' : ' + message;
+			spanMessage.innerHTML = ' : ' + message;
 			div.appendChild(spanUsuario);
 			div.appendChild(spanMessage);
 			divPrincipal.appendChild(div);
 		};
-
 		$(document).ready(function () {
 			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
 			$('#text').keypress(function (e) {
 				if(e.keyCode == 13){
 					var value = $(this).val();
+
+					if(value.indexOf('jpg') != -1 || value.indexOf('png') != -1 ){
+						value = '<img style="width: 10%;">' + value + '</img>';
+					}
+
 					if(value.trim().length > 1){
 						myFire.push({name: randomName(), text: value, color : randomColor()});
 					}
