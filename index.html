@@ -179,6 +179,7 @@
 			});
 			myFire.limitToLast(15).on('child_added', function(snapshot) {
 				adicionarTexto(snapshot.val());
+				document.querySelector('#messages').animate({scrollBottom: 30000}, 'slow')
 			});
 		});
 	</script>
