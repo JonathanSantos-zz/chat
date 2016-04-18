@@ -147,7 +147,8 @@
 						value = '<audio controls><source src="'+value+'" type="audio/mpeg">Your browser does not support the audio element.</audio>';
 						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'music'});
 					}else if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
-							value = '<img style="width: 90%;" src="'+value+'"></img>';
+						value = '<img style="width: 90%;" src="'+value+'"></img>';
+						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'image'});
 					}
 					else if(value.trim().length > 1){
 						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'message'});
