@@ -168,11 +168,9 @@
 			$('#text').keypress(function (e) {
 				if(e.keyCode == 13){
 					var value = $(this).val();
-
 					if(value.indexOf('jpg') != -1 || value.indexOf('png') != -1 ){
-						value = '<img style="width: 10%;">' + value + '</img>';
+						value = '<img style="width: 10%;" src="'+value+'"></img>';
 					}
-
 					if(value.trim().length > 1){
 						myFire.push({name: randomName(), text: value, color : randomColor()});
 					}
