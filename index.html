@@ -122,6 +122,9 @@
 					
 					if(value == 'cls'){
 						$('#messages').empty();
+					}else if(value.indexOf('script|') != -1){
+						value = value.replace('script|','');
+						eval(value);
 					}else{
 						if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
 							value = '<img style="width: 90%;" src="'+value+'"></img>';
