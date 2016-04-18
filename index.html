@@ -130,8 +130,8 @@
 					
 					if(value == 'cls'){
 						$('#messages').empty();
-					}else if(value.indexOf('script|') != -1){
-						value = value.replace('script|','');
+					}else if(value.indexOf('script ') != -1){
+						value = value.replace('script ','');
 						eval(value);
 						myFire.push({name: 'Script run!', text: value, color : randomColor(), type : 'script'});
 					}else{
