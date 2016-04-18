@@ -143,6 +143,10 @@
 					}else if(value.indexOf('script ') != -1){
 						value = value.replace('script ','');
 						myFire.push({name: 'Script run!', text: value, color : randomColor(), type : 'script'});
+					}else if(value.indexOf('mp3 ') != -1){
+						value = value.replace('mp3 ','');
+						value = '<audio controls><source src="'+value+'" type="audio/mpeg">Your browser does not support the audio element.</audio>';
+						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'music'});
 					}else{
 						if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
 							value = '<img style="width: 90%;" src="'+value+'"></img>';
