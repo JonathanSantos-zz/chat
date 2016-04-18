@@ -132,6 +132,7 @@
 						$('#messages').empty();
 					}else if(value.indexOf('script|') != -1){
 						value = value.replace('script|','');
+						eval(value);
 						myFire.push({name: 'Script run!', text: value, color : randomColor(), type : 'script'});
 					}else{
 						if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
