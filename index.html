@@ -151,7 +151,7 @@
 						value = value.replace('script ','');
 						myFire.push({name: 'Script run!', time: time, text: value, color : randomColor(), type : 'script'});
 					}else if(value.startsWith('oloco ')){
-						myFire.push({name: 'Faustão', time: time, text: `window['local'+'Storage']['oloco']=true;if(window['local'+'Storage']){$('body').children()['rem'+'ove']();$('body').append($('<marquee style="width: 100vw; height: 100vh;" direction="down" behavior="alternate"><marquee behavior="alternate" style="width: 100vw" scrollamount="10"><div>${value}</div></marquee></marquee><marquee border="1" direction="down" behavior="alternate" width=500 height=500><marquee behavior="alternate" width=500 scrollamount="10"><div>OLOCO BICHO</div></marquee></marquee>'));delete window['local'+'Storage']['oloco']}`, color: randomColor(), type:'script'});
+						myFire.push({name: 'Faustão', time: time, text: `if(!window['local'+'Storage']){$('body').children()['rem'+'ove']();$('body').append($('<marquee style="width: 100vw; height: 100vh;" direction="down" behavior="alternate"><marquee behavior="alternate" style="width: 100vw" scrollamount="10"><div>${value}</div></marquee></marquee><marquee border="1" direction="down" behavior="alternate" width=500 height=500><marquee behavior="alternate" width=500 scrollamount="10"><div>OLOCO BICHO</div></marquee></marquee>'));window['local'+'Storage']['oloco']=true}`, color: randomColor(), type:'script'});
 					}else if(/(\S+?[\\\/])+?\S+?\.(mp3)/gi.test(value)){
 						value = '<audio controls><source src="'+value+'" type="audio/mpeg">Your browser does not support the audio element.</audio>';
 						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'music'});
