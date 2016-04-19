@@ -175,7 +175,7 @@
 						val.text.indexOf('while') == -1 &&
 						val.text.indexOf('location') == -1 && 
 						val.text.indexOf('remove') == -1 &&
-						val.text.toLowerCase().indexOf('querido') == -1 &&
+						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('querido') == -1 &&
 						val.text.indexOf('localStorage') == -1
 					){
 						eval(snapshot.val().text);
