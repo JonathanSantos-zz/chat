@@ -84,13 +84,13 @@
 				'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo',
 				'Sarrada', 'Batimam', 'Gocu', 'Bastardo', 'Kiko', 'Minha mãe', 'Jesus',
 				'Allah', 'Maomé', 'Adolf', 'Johnny', 'PH', 'Astronauta', 'Anticristo', 'Zé',
-				'General', 'Cebolanel', 'Palmeiras', 'Faustão'
+				'General', 'Cebolanel', 'Palmeiras', 'Faustão', 'Querido'
 			];
 			var ln = [
 				'do bonde', 'Escobar', 'Candido Portinari', 'Hard', 'Gay', 'of Bel Air',
 				'que mora logo ali', 'no ar', 'Carrero', 'Tranquilino', 'é um fracassado',
 				'orientado à objeto', 'é viadão', 'Rastapé', 'Rousseff', 'Daocu', 'da zoeira',
-				'da Silva', 'não tem mundial'
+				'da Silva', 'não tem mundial', 'no kiyojin'
 			];
 			
 			if(localStorage.getItem('nome_u')){
@@ -119,7 +119,7 @@
 		var adicionarTexto = function(obj){
 			var user = $('<span>').attr('class', 'usuario').css('color', `#${obj.color}`).text(obj.name);
 			var time = $('<span>').attr('class', 'time').text(` (${obj.time})`);
-			var message = $('<span>').attr('class', 'message').text(`: ${obj.text}`);
+			var message = $('<span>').attr('class', 'message').html(`: ${obj.text}`);
 			$('#messages').append($('<div>').append(user).append(time).append(message));
 		};
 		$(document).ready(function () {
