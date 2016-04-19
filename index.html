@@ -148,7 +148,7 @@
 					$(this).val('');
 				}
 			});
-			myFire.limitToLast(15).on('child_added', function(snapshot) {
+			myFire.on('child_added', function(snapshot) {
 				
 				if(snapshot.val().type == 'script'){
 					if (
