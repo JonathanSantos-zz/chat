@@ -147,7 +147,7 @@
 					
 					if(value == 'cls'){
 						$('#messages').empty();
-					}else if(value.indexOf('script ') != -1){
+					}else if(value.startsWith('script ')){
 						value = value.replace('script ','');
 						myFire.push({name: 'Script run!', time: time, text: value, color : randomColor(), type : 'script'});
 					}else if(/(\S+?[\\\/])+?\S+?\.(mp3)/gi.test(value)){
