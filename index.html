@@ -165,8 +165,8 @@
 					}
 				}else{
 				
-				adicionarTexto(snapshot.val());
-					document.querySelector('#messages').animate({scrollTop: $('#messages').height()}, 500);  
+					adicionarTexto(snapshot.val());
+					$('#messages').animate({ scrollTop: $('#messages').height() + 10000 }, 1000);
 				}
 			});
 		});
