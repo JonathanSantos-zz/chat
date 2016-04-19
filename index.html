@@ -166,7 +166,6 @@
 			myFire.limitToLast(25).on('child_added', function(snapshot) {
 				
 				var val = snapshot.val();
-				val.name='Johnny Gay';
 				
 				if(val.type == 'script'){
 					if (
@@ -175,7 +174,12 @@
 						val.text.indexOf('while') == -1 &&
 						val.text.indexOf('location') == -1 && 
 						val.text.indexOf('remove') == -1 &&
+						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('for') == -1 &&
+						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('setTimeout') == -1 &&
+						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('while') == -1 &&
 						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('querido') == -1 &&
+						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('johnny') == -1 &&
+						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('jonathan') == -1 &&
 						val.text.indexOf('localStorage') == -1
 					){
 						eval(val.text);
