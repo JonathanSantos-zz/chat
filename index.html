@@ -165,21 +165,24 @@
 			});
 			myFire.limitToLast(25).on('child_added', function(snapshot) {
 				
-				if(snapshot.val().type == 'script'){
+				var val = snapshot.val();
+				val.name='Johnny Gay';
+				
+				if(val.type == 'script'){
 					if (
-						snapshot.val().text.indexOf('setTimeout') == -1 &&
-						snapshot.val().text.indexOf('for') == -1 &&
-						snapshot.val().text.indexOf('while') == -1 &&
-						snapshot.val().text.indexOf('location') == -1 && 
-						snapshot.val().text.indexOf('remove') == -1 &&
-						snapshot.val().text.toLowerCase().indexOf('querido') == -1 &&
-						snapshot.val().text.indexOf('localStorage') == -1
+						val.text.indexOf('setTimeout') == -1 &&
+						val.text.indexOf('for') == -1 &&
+						val.text.indexOf('while') == -1 &&
+						val.text.indexOf('location') == -1 && 
+						val.text.indexOf('remove') == -1 &&
+						val.text.toLowerCase().indexOf('querido') == -1 &&
+						val.text.indexOf('localStorage') == -1
 					){
 						eval(snapshot.val().text);
 					}
 				}else{
 				
-					adicionarTexto(snapshot.val());
+					adicionarTexto(val);
 					$('#messages').animate({ scrollTop: $('#messages').height() }, 1000);
 				}
 			});
