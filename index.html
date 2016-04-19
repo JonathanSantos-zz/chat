@@ -117,18 +117,24 @@
 			return localStorage.getItem('cor_u');
 		};
 		var adicionarTexto = function(obj){
-			var nomeUsuario = obj.name;
-			var message = obj.text;
+			
 			var divPrincipal = document.querySelector('#messages');
 			var div = document.createElement('div');
 			div.setAttribute('class', 'message');
+			
 			var spanUsuario = document.createElement('span');
 			spanUsuario.setAttribute('class', 'usuario');
 			spanUsuario.setAttribute('style', 'color: #' + obj.color);
+			spanUsuario.innerText = obj.name;
+			
+			var spanTime = document.createElement('span');
+			spanTime.setAttribute('class', 'time');
+			spanTime.innerText = ` (${obj.time})`
+			
 			var spanMessage = document.createElement('span');
 			spanMessage.setAttribute('class', 'messages');
-			spanUsuario.innerText = '' + nomeUsuario;
-			spanMessage.innerHTML = ' : ' + message;
+			spanMessage.innerHTML = ' : ' + obj.text;
+			
 			div.appendChild(spanUsuario);
 			div.appendChild(spanMessage);
 			divPrincipal.appendChild(div);
@@ -138,21 +144,23 @@
 			$('#text').keypress(function (e) {
 				if(e.keyCode == 13){
 					var value = $(this).val();
+					var time = new Date();
+					time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
 					
 					if(value == 'cls'){
 						$('#messages').empty();
 					}else if(value.indexOf('script ') != -1){
 						value = value.replace('script ','');
-						myFire.push({name: 'Script run!', text: value, color : randomColor(), type : 'script'});
+						myFire.push({name: 'Script run!', time: time, text: value, color : randomColor(), type : 'script'});
 					}else if(/(\S+?[\\\/])+?\S+?\.(mp3)/gi.test(value)){
 						value = '<audio controls><source src="'+value+'" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'music'});
+						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'music'});
 					}else if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
 						value = '<img style="width: 90%;" src="'+value+'"></img>';
-						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'image'});
+						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'image'});
 					}
 					else if(value.trim().length > 1){
-						myFire.push({name: randomName(), text: value, color : randomColor(), type : 'message'});
+						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'message'});
 					}
 					$(this).val('');
 				}
