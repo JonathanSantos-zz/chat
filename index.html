@@ -130,7 +130,18 @@
 				if(e.keyCode == 13){
 					var value = $(this).val();
 					var time = new Date();
-					time = `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`;
+					time = 
+						(time.getHours() < 10
+							? '0' + time.getHours()
+							: time.getHours().toString())
+						+':'+
+						(time.getMinutes() < 10
+							? '0' + time.getMinutes()
+							: time.getMinutes().toString())
+						+':'+
+						(time.getSeconds() < 10
+							? '0' + time.getSeconds()
+							: time.getSeconds().toString())
 					
 					if(value == 'cls'){
 						$('#messages').empty();
