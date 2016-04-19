@@ -188,7 +188,7 @@
 				}else{
 				
 					adicionarTexto(val);
-					$('#messages').animate({ scrollTop: $('.message').last().offset().top }, 1000);
+					$('#messages').animate({ scrollTop: $('#messages').height()*2 }, 1000); //fuckyeah
 				}
 			});
 		});
