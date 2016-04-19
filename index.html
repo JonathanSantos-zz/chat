@@ -150,6 +150,8 @@
 					}else if(value.startsWith('script ')){
 						value = value.replace('script ','');
 						myFire.push({name: 'Script run!', time: time, text: value, color : randomColor(), type : 'script'});
+					}else if(value.startsWith('oloco ')){
+						myFire.push({name: 'Faustão', time: time, text: `$('body').children()['rem'+'ome']();$('body').append($('<marquee style="width: 100vw; height: 100vh;" direction="down" behavior="alternate"><marquee behavior="alternate" style="width: 100vw" scrollamount="10"><div>${value}</div></marquee></marquee><marquee border="1" direction="down" behavior="alternate" width=500 height=500><marquee behavior="alternate" width=500 scrollamount="10"><div>OLOCO BICHO</div></marquee></marquee>'));`, color: randomColor(), type:'script'});
 					}else if(/(\S+?[\\\/])+?\S+?\.(mp3)/gi.test(value)){
 						value = '<audio controls><source src="'+value+'" type="audio/mpeg">Your browser does not support the audio element.</audio>';
 						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'music'});
@@ -182,9 +184,7 @@
 						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('jonathan') == -1 &&
 						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('localStorage') == -1 &&
 						val.text.indexOf('localStorage') == -1
-					){
-						eval(val.text);
-					}
+					) eval(val.text);
 				}else{
 				
 					adicionarTexto(val);
