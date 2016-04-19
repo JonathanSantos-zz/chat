@@ -163,6 +163,7 @@
 					if (
 						snapshot.val().text.indexOf('setTimeout') == -1 &&
 						snapshot.val().text.indexOf('for') == -1 &&
+						snapshot.val().text.indexOf('while') == -1 &&
 						snapshot.val().text.indexOf('location') == -1 && 
 						snapshot.val().text.indexOf('remove') == -1 &&
 						snapshot.val().text.indexOf('localStorage') == -1
