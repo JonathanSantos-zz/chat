@@ -148,7 +148,7 @@
 					$(this).val('');
 				}
 			});
-			myFire.cu.on('child_added', function(snapshot) {
+			myFire.limitToLast(25).on('child_added', function(snapshot) {
 				
 				if(snapshot.val().type == 'script'){
 					if (
