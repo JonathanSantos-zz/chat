@@ -178,7 +178,7 @@
 						val.text.toLowerCase().replace(' ', '').replace('"+"', '').replace("'+'", '').indexOf('querido') == -1 &&
 						val.text.indexOf('localStorage') == -1
 					){
-						eval(snapshot.val().text);
+						eval(val.text);
 					}
 				}else{
 				
