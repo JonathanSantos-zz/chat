@@ -150,8 +150,17 @@
 			var message = $('<span>').attr('class', 'message').html(`: ${obj.text}`);
 			$('#messages').append($('<div>').append(user).append(time).append(message));
 		};
+		
+		
+		
 		$(function () {
 			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
+			
+			$('#remove-one').on('click', function () {});
+			$('#remove-all').on('click', function () {
+				myFire.remove();
+			});
+			
 			$('#text').keypress(function (e) {
 				if(e.keyCode == 13){
 					var value = $(this).val();
@@ -189,6 +198,7 @@
 					$(this).val('');
 				}
 			});
+			
 			myFire.limitToLast(25).on('child_added', function(snapshot) {
 				
 				var val = snapshot.val();
