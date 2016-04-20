@@ -104,13 +104,13 @@
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 	<script type="text/javascript">
 	
-		function notify(message, title, permission) {
+		function notify(message, title, time, permission) {
 			permission = permission || Notification.permission;
 			
 			if (!("Notification" in window))
 				alert("This browser does not support system notifications");
 			else if (permission === "granted")
-				return new Notification(title, { body: message });
+				return new Notification(`${title} (${time})`, { body: message });
 			else if (permission !== 'denied')
 				Notification.requestPermission(function (result) {
 					notify(message, title, result);
@@ -257,7 +257,7 @@
 						var $$ = jQuery;
 						
 						eval(val.text);
-						notify(val.name, val.text);
+						notify(val.text, val.name, val.time);
 						
 						delete $;
 						delete jQuery;
@@ -267,7 +267,7 @@
 				} else {
 				
 					adicionarTexto(val);
-					notify(val.name, val.text);
+					notify(val.text, val.name, val.time);
 					
 					$('#messages').animate({
 						scrollTop: $('#messages').prop("scrollHeight") - $('#messages').height()
