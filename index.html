@@ -255,15 +255,20 @@
 					
 					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage'])) {
 						var $$ = jQuery;
+						
 						eval(val.text);
+						notify(val.name, val.text);
+						
 						delete $;
 						delete jQuery;
 						var $ = $$;
 						var jQuery = $$;
 					}
-				}else{
+				} else {
 				
 					adicionarTexto(val);
+					notify(val.name, val.text);
+					
 					$('#messages').animate({
 						scrollTop: $('#messages').prop("scrollHeight") - $('#messages').height()
 					}, 1);
