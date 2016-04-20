@@ -103,6 +103,20 @@
 	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
 	<script type="text/javascript">
+	
+		function notify(message, title, permission) {
+			permission = permission || Notification.permission;
+			
+			if (!("Notification" in window))
+				alert("This browser does not support system notifications");
+			else if (permission === "granted")
+				return new Notification(title, { body: message });
+			else if (permission !== 'denied')
+				Notification.requestPermission(function (result) {
+					notify(message, title, result);
+				});
+		}
+	
 		var randomName = function(){
 			var fn = [
 				'Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'H1N1', 'Ninguém',
