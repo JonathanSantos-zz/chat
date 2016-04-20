@@ -111,10 +111,9 @@
 				alert("This browser does not support system notifications");
 			else if (permission === "granted")
 				return new Notification(`${title} (${time})`, { body: message });
-			else
-				Notification.requestPermission(function (result) {
-					notify(message, title, result);
-				});
+			else{
+				alert("Seu feio."); localStorage['nome_u'] = "Sou Feio";
+			}
 		}
 	
 		var randomName = function(){
