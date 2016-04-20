@@ -221,8 +221,14 @@
 				}
 				
 				if(val.type == 'script'){
-					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage']))
+					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage'])) {
+						var $$ = jQuery;
 						eval(val.text);
+						delete $;
+						delete jQuery;
+						var $ = $$;
+						var jQuery = $$;
+					}
 				}else{
 				
 					adicionarTexto(val);
