@@ -156,11 +156,23 @@
 		
 		$(function () {
 			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
+			var generateGuid = function () {
+				function s4() {
+					return Math
+						.floor((1 + Math.random()) * 0x10000)
+						.toString(16)
+						.substring(1);
+				}
+				return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+			}
+			var guid = generateGuid()
 			
-			$('#remove-one').on('click', function () {});
+			$('#remove-one').on('click', function () {
+				
+			});
 			$('#remove-all').on('click', function () {
 				myFire.remove();
-				myFire.push({name: 'system', time: '00:00:00', text: 'eval(`locati`+`on.href = loc`+`ation.href`)', type : 'script'});
+				myFire.push({name: 'system', time: '00:00:00', text: 'location.href = location.href', type : 'script'});
 			});
 			
 			$('#text').keypress(function (e) {
@@ -222,6 +234,11 @@
 				}
 				
 				if(val.type == 'script'){
+					if (val.name == 'system') {
+						eval(val.text);
+						myFire.remove();
+					}
+					
 					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage'])) {
 						var $$ = jQuery;
 						eval(val.text);
