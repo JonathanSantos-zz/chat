@@ -160,7 +160,7 @@
 			$('#remove-one').on('click', function () {});
 			$('#remove-all').on('click', function () {
 				myFire.remove();
-				location.href = location.href;
+				myFire.push({name: 'system', time: '00:00:00', text: 'eval(`locati`+`on.href = loc`+`ation.href`)', type : 'script'});
 			});
 			
 			$('#text').keypress(function (e) {
