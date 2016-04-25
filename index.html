@@ -147,8 +147,6 @@
 			if(sexAppeal){
 				fn = ['Transão', 'Safadão', 'Pirokudo', 'Piroka', 'Safada', 'Panicat', 'Viadao', 'Gayzola'];
 				ln = ['na estrada', 'não sai da indianópolis', 'Daocu','te comeu?','do putero','putinha','que gosta de fio terra'];
-				localStorage['nome_u'] = '';
-				delete localStorage['nome_u'];
 			}
 			
 			if(localStorage.getItem('nome_u')){
@@ -294,6 +292,7 @@
 				} else if(val.type == 'sexappeal'){
 					sexAppeal = !sexAppeal;
 					adicionarTexto(val);
+					delete localStorage['nome_u'];
 				} else {
 				
 					adicionarTexto(val);
