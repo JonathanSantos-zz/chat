@@ -116,8 +116,13 @@
 				localStorage['nome_u'] = "Sou Feio";
 			}
 		}
+
+		var notificationOn = true;
+		var sexAppeal = false;
+		var scriptOn = true;
 	
 		var randomName = function(){
+
 			var fn = [
 				'Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'H1N1', 'Ninguém',
 				'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'MC', 'Carreta',
@@ -128,6 +133,7 @@
 				'Politico', 'Japonês', 'Criolo', 'Judeu', 'He-man', 'Snoopy', 'Socialista',
 				'Dollyinho', 'Sukita', 'Piriquitossauro', 'Pirokaloka', 'Novinha'
 			];
+
 			var ln = [
 				'do bonde', 'Escobar', 'Candido Portinari', 'Hard', 'Gay', 'of Bel Air', 'light',
 				'que mora logo ali', 'no ar', 'Carrero', 'Tranquilino', 'é um fracassado', 'diet',
@@ -137,6 +143,13 @@
 				'Boladão', 'Corrupto', 'Nazista', 'Capitalista', 'Dog', 'Guaraná', 'o seu amiguinho',
 				'Rex', 'do Tinder', 'do baile', 's2', 'pai de família'
 			];
+
+			if(sexAppeal){
+				fn = ['Transão', 'Safadão', 'Pirokudo', 'Piroka', 'Safada', 'Panicat', 'Viadao', 'Gayzola'];
+				ln = ['na estrada', 'não sai da indianópolis', 'Daocu','te comeu?','do putero','putinha','que gosta de fio terra'];
+				localStorage['nome_u'] = '';
+				delete localStorage['nome_u'];
+			}
 			
 			if(localStorage.getItem('nome_u')){
 				return localStorage.getItem('nome_u');
@@ -167,8 +180,6 @@
 			var message = $('<span>').attr('class', 'message').html(`: ${obj.text}`);
 			$('#messages').append($('<div>').append(user).append(time).append(message));
 		};
-		
-		
 		
 		$(function () {
 			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
@@ -210,6 +221,12 @@
 					
 					if(value == 'cls'){
 						$('#messages').empty();
+					}else if(value.trim() == 'script'){
+						scriptOn = !scriptOn;
+						adicionarTexto({name : 'local', time : 'Agora', text : 'Adicionado o Script, status: ' + scriptOn});
+					}else if(value.trim() == 'notification'){
+						notificationOn = !notificationOn;
+						adicionarTexto({name : 'local', time : 'Agora', text : 'Adicionado a notificação, status: ' + notificationOn});
 					}else if(value.startsWith('script ')){
 						value = value.replace('script ','');
 						myFire.push({name: 'Script run!', time: time, text: value, color : randomColor(), type : 'script'});
@@ -221,8 +238,9 @@
 					}else if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
 						value = '<img style="width: 90%;" src="'+value+'"></img>';
 						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'image'});
-					}
-					else if(value.trim().length > 1){
+					} else if (value.trim() == 'sex-appeal') {
+						myFire.push({name: randomName(), time: time, text: 'Sex Appeal foi chamado', color : randomColor(), type : 'sexappeal'});
+					} else if (value.trim().length > 1) {
 						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'message'});
 					}
 					$(this).val('');
@@ -250,26 +268,40 @@
 				}
 				
 				if(val.type == 'script'){
+
 					if (val.name == 'system') {
-						eval(val.text);
+						if(scriptOn){
+							eval(val.text);
+						}
 						myFire.remove();
 					}
 					
-					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage'])) {
+					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage', 'johnny'])) {
 						var $$ = jQuery;
-						
-						eval(val.text);
-						notify(val.text, val.name, val.time);
-						
+						if(scriptOn){
+							eval(val.text);
+						}
+
+						if(notificationOn){
+							notify(val.text, val.name, val.time);
+						}
+
 						delete $;
 						delete jQuery;
 						var $ = $$;
 						var jQuery = $$;
 					}
-				} else {
+				} else if(val.type == 'sexappeal'){
+					sexAppeal = !sexAppeal;
+					adicionarTexto(val);
+				} else if (){
+
+				}else {
 				
 					adicionarTexto(val);
-					notify(val.text, val.name, val.time);
+					if(notificationOn){
+						notify(val.text, val.name, val.time);
+					}
 					
 					$('#messages').animate({
 						scrollTop: $('#messages').prop("scrollHeight") - $('#messages').height()
