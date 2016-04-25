@@ -149,13 +149,6 @@
 				ln = ['na estrada', 'não sai da indianópolis', 'Daocu','te comeu?','do putero','putinha','que gosta de fio terra'];
 			}
 			
-			if(localStorage.getItem('nome_u')){
-				return localStorage.getItem('nome_u');
-			}else{
-				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
-				localStorage.setItem('nome_u', nome);
-			}
-			
 			if(!localStorage.getItem('nome_u')){
 				
 				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
