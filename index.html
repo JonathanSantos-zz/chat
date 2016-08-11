@@ -1,162 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Chat BRQ</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+	<title>CMD</title>
 	<style type="text/css">
-	
-	html, body {
-		margin: 0;
-		padding: 0;
-		height: 100vh;
-		overflow: hidden;
-	}
-	
-	.body {
-		background-color: #ddd;
-	}
-	.content {
-		height: 700px;
-		padding-top: 5px;
-		background-color: #ddd;
-	}
-	.content-card {
-		width: 70%;
-		margin: 0 auto;
-		background-color: #fff;
-		padding: 10px 20px;
-		box-shadow: 0px 0px 9px #787878;
-		margin-top: 5px;
-	}
-	.content-card.w {
-		height: 500px;
-	    z-index: 100;
-	    overflow-y: scroll;
-	}
-	.content-card input[type="text"] {
-		width: 100%;
-	}
-	.header span {
-	    font-size: 26px;
-	    font-family: sans-serif;
-	    margin-left: 10px;/*dsad*/
-	}
-	
-	.buttons {
-		position: absolute;
-		top: 5px;
-		right: 5px;
-	}
-	.buttons button {
-		background: none;
-		border: none;
-		color: white;
-	}
-	.buttons button:hover {
-		color: black;
-	}
-	
-	#remove-one {
-		
-	}
-	
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: #000;
+		}
+
+		input:focus, textarea:focus {
+		    box-shadow: 0 0 0 0;
+		    outline: 0;
+		} 
+
+		span {
+			display:block;
+			width:100vw;
+			word-wrap:break-word;
+		}
+
+		.terminal {
+			background-color: #000;
+			color: #00a507;
+			width: 100vw;
+			height: 80vh;
+		    overflow-x: visible;
+		    overflow-y: overlay;
+		}
+
+		.input {
+			position: fixed;
+			bottom: 4px;
+			width: 100%;
+		    border: none;
+		    background-color: #000;
+		    color: #00a507;
+		    font-size: 20px;
+		    font-family: verdana;
+		    border-left: 10px solid #00a507;
+		    padding-left: 5px;
+		    height: 19vh;
+		}
 	</style>
 </head>
 <body>
-
-	<!-- RODAPE -->
-	<div class="header">
-		<a href="https://github.com/jonathansantos/chat">
-			<img src="|https://lh5.googleusercontent.com/-l9BC0xu8qiw/AAAAAAAAAAI/AAAAAAAACxs/YBcLsRkJxos/s0-c-k-no-ns/photo.jpg" width="64" height="64">
-		</a>
-		<span>Bradesco</span>
+	<div class="terminal">
 	</div>
-	<!-- RODAPE -->
-
-
-	<!-- CONTEUDO -->
-
-	<div class="content">
-		
-		<div class="buttons">
-			<button id="remove-one">-1</button>
-			<button id="remove-scripts">-script</button>
-			<button id="remove-all">-*</button>
-		</div>
-		
-		<div class="content-card w" id="messages">
-			
-		</div>
-
-		<div class="content-card" id="messages">
-			<input type="text" id="text"></input>
-		</div>
-
-	</div>
-
-	<!-- CONTEUDO -->
-
-
-	<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<textarea type="text" class="input" id="input" autofocus></textarea>
 	<script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
 	<script type="text/javascript">
-	
-		function notify(message, title, time, permission) {
-			permission = permission || Notification.permission;
-			
-			if (!("Notification" in window))
-				alert("This browser does not support system notifications");
-			else if (permission === "granted")
-				return new Notification(`${title} (${time})`, { body: message });
-			else{
-				alert("Seu feio.");
-				localStorage['nome_u'] = "Sou Feio";
+
+		var idCount = 0;
+
+		function write (text) {
+			var velocidade = 20;
+			var span = document.createElement('span');
+			span.setAttribute('id', 'id'+idCount);
+			document.querySelector('.terminal').appendChild(span);
+
+			var fn = function(j, bool){
+				return function () {
+					span.textContent += j;
+					if(bool){
+						span.innerHTML = span.textContent;
+					}
+				};
+			};
+
+			for (var i = 0; i < text.length; i++) {
+				setTimeout(fn(text[i], i == text.length - 1), velocidade * (i + 1));
 			}
+
+			idCount++;
 		}
 
-		var notificationOn = false;
-		var sexAppeal = false;
-		var scriptOn = true;
-	
-		var randomName = function(){
+		document.querySelector('#input').focus();
 
-			var fn = [
-				'Chaves', 'Zika', 'Link', 'HueHue', 'Nerd', 'PogMan', 'Bird', 'H1N1', 'Ninguém',
-				'Gay', 'Rasta', 'Fofão', 'Prince', 'Carinha', 'Perigo', 'MC', 'Carreta',
-				'Sarrada', 'Bátimã', 'Gocu', 'Bastardo', 'Kiko', 'Minha mãe', 'Jesus', 'Tio',
-				'Allah', 'Maomé', 'Adolf', 'Johnny', 'PH', 'Astronauta', 'Anticristo', 'Zé',
-				'General', 'Cebolanel', 'Palmeiras', 'Faustão', 'Querido', 'Nudes', 'Virilha',
-				'Meu pai', 'Dona Florinda', 'Danierson', 'Perillo', 'Anakin', 'Silvio Santos',
-				'Politico', 'Japonês', 'Criolo', 'Judeu', 'He-man', 'Snoopy', 'Socialista',
-				'Dollyinho', 'Sukita', 'Piriquitossauro', 'Pirokaloka', 'Novinha'
-			];
+		var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
 
-			var ln = [
-				'do bonde', 'Escobar', 'Candido Portinari', 'Hard', 'Gay', 'of Bel Air', 'light',
-				'que mora logo ali', 'no ar', 'Carrero', 'Tranquilino', 'é um fracassado', 'diet',
-				'orientado à objeto', 'é viadão', 'Rastapé', 'Rousseff', 'Daocu', 'da zoeira',
-				'da Silva', 'não tem mundial', 'no kiyojin', 'do oriente', 'Furacão', 'Doido',
-				'é rastafári', 'Lula da Silva', 'te comeu?', 'Skywalker', 'Vader', 'da Federal',
-				'Boladão', 'Corrupto', 'Nazista', 'Capitalista', 'Dog', 'Guaraná', 'o seu amiguinho',
-				'Rex', 'do Tinder', 'do baile', 's2', 'pai de família'
-			];
+		document.querySelector('#input').addEventListener('keypress', function(e){
+			var key = e.which || e.keyCode;
 
-			if(sexAppeal){
-				fn = ['Transão', 'Safadão', 'Pirokudo', 'Piroka', 'Safada', 'Panicat', 'Viadao', 'Gayzola'];
-				ln = ['na estrada', 'não sai da indianópolis', 'Daocu','te comeu?','do putero','putinha','que gosta de fio terra'];
-			}
-			
-			if(!localStorage.getItem('nome_u')){
-				
-				var nome = fn[Math.floor(Math.random() * fn.length)] + ' ' + ln[Math.floor(Math.random() * ln.length)];
-				localStorage.setItem('nome_u', nome);
-			}
-			
-			return localStorage.getItem('nome_u');
-		};
+		    if (key === 13) { 
+		      	var texto = this.value;
+				this.value = '';
+				myFire.push({name: 'Anonymous', time: '', text: texto, color : randomColor(), type : 'message'});
+		    }
+
+		});
+
 		var randomColor = function(){
 			var cores = ['FF2194', 'C821FF', '3F21FF', '67DBCE', 'FC4955', '209E2A', 'F58E27', 'C0E334', 'FF0000'];
 			if(!localStorage.getItem('cor_u')) {
@@ -165,140 +103,18 @@
 			}
 			return localStorage.getItem('cor_u');
 		};
-		var adicionarTexto = function(obj){
-			var user = $('<span>').attr('class', 'usuario').css('color', `#${obj.color}`).text(obj.name);
-			var time = $('<span>').attr('class', 'time').text(` (${obj.time})`);
-			var message = $('<span>').attr('class', 'message').html(`: ${obj.text}`);
-			$('#messages').append($('<div>').append(user).append(time).append(message));
-		};
-		
-		$(function () {
-			var myFire = new Firebase('https://chat-amigos.firebaseio.com/');
-			var generateGuid = function () {
-				function s4() {
-					return Math
-						.floor((1 + Math.random()) * 0x10000)
-						.toString(16)
-						.substring(1);
-				}
-				return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+
+		myFire.limitToLast(25).on('child_added', function(snapshot) {
+				
+			var val = snapshot.val()
+
+			if(val.type == 'message'){
+				write('Anonymous - ' + val.text);
 			}
-			var guid = generateGuid()
 			
-			$('#remove-one').on('click', function () {
 				
-			});
-			$('#remove-all').on('click', function () {
-				myFire.remove();
-				myFire.push({name: 'system', time: '00:00:00', text: 'location.href = location.href', type : 'script'});
-			});
-			
-			$('#text').keypress(function (e) {
-				if(e.keyCode == 13){
-					var value = $(this).val();
-					var time = new Date();
-					time = 
-						(time.getHours() < 10
-							? '0' + time.getHours()
-							: time.getHours().toString())
-						+':'+
-						(time.getMinutes() < 10
-							? '0' + time.getMinutes()
-							: time.getMinutes().toString())
-						+':'+
-						(time.getSeconds() < 10
-							? '0' + time.getSeconds()
-							: time.getSeconds().toString())
-					
-					if(value == 'cls'){
-						$('#messages').empty();
-					}else if(value.trim() == 'script'){
-						scriptOn = !scriptOn;
-						adicionarTexto({name : 'local', time : 'Agora', text : 'Adicionado o Script, status: ' + scriptOn});
-					}else if(value.trim() == 'notification'){
-						notificationOn = !notificationOn;
-						adicionarTexto({name : 'local', time : 'Agora', text : 'Adicionado a notificação, status: ' + notificationOn});
-					}else if(value.startsWith('script ')){
-						value = value.replace('script ','');
-						myFire.push({name: 'Script run!', time: time, text: value, color : randomColor(), type : 'script'});
-					}else if(value.startsWith('oloco ')){
-						myFire.push({name: 'Faustão', time: time, text: `if(!window['local'+'Storage']){$('body').children()['rem'+'ove']();$('body').append($('<marquee style="width: 100vw; height: 100vh;" direction="down" behavior="alternate"><marquee behavior="alternate" style="width: 100vw" scrollamount="10"><div>${value}</div></marquee></marquee><marquee border="1" direction="down" behavior="alternate" width=500 height=500><marquee behavior="alternate" width=500 scrollamount="10"><div>OLOCO BICHO</div></marquee></marquee>'));window['local'+'Storage']['oloco']=true}`, color: randomColor(), type:'script'});
-					}else if(/(\S+?[\\\/])+?\S+?\.(mp3)/gi.test(value)){
-						value = '<audio controls><source src="'+value+'" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'music'});
-					}else if(/(\S+?[\\\/])+?\S+?\.(png|jpeg|jpg|gif)/gi.test(value)) {
-						value = '<img style="width: 90%;" src="'+value+'"></img>';
-						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'image'});
-					} else if (value.trim() == 'sex-appeal') {
-						myFire.push({name: randomName(), time: time, text: 'Sex Appeal foi chamado', color : randomColor(), type : 'sexappeal'});
-					} else if (value.trim().length > 1) {
-						myFire.push({name: randomName(), time: time, text: value, color : randomColor(), type : 'message'});
-					}
-					$(this).val('');
-				}
-			});
-			
-			myFire.limitToLast(25).on('child_added', function(snapshot) {
-				
-				var val = snapshot.val();
-				
-				var doesNotContainsAny = function(text, values) {
-					var x = true;
-					
-					values.forEach(function (value) {
-						x = x &&
-							text
-								.toLowerCase()
-								.replace(' ', '')
-								.replace('"+"', '')
-								.replace("'+'", '')
-								.indexOf(value.toLowerCase()) == -1;
-					});
-					
-					return x;
-				}
-				
-				if(val.type == 'script'){
-
-					if (val.name == 'system') {
-						if(scriptOn){
-							eval(val.text);
-						}
-						myFire.remove();
-					}
-					
-					if (doesNotContainsAny(val.text, ['for', 'while', 'remove', 'location', 'setTimeout', 'querido', 'localStorage', 'johnny'])) {
-						var $$ = jQuery;
-						if(scriptOn){
-							eval(val.text);
-						}
-
-						if(notificationOn){
-							notify(val.text, val.name, val.time);
-						}
-
-						delete $;
-						delete jQuery;
-						var $ = $$;
-						var jQuery = $$;
-					}
-				} else if(val.type == 'sexappeal'){
-					sexAppeal = !sexAppeal;
-					adicionarTexto(val);
-					delete localStorage['nome_u'];
-				} else {
-				
-					adicionarTexto(val);
-					if(notificationOn){
-						notify(val.text, val.name, val.time);
-					}
-					
-					$('#messages').animate({
-						scrollTop: $('#messages').prop("scrollHeight") - $('#messages').height()
-					}, 1);
-				}
-			});
 		});
+
 	</script>
 </body>
 </html>
