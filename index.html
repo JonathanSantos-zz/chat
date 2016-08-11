@@ -58,11 +58,12 @@
 
 		var idCount = 0;
 
-		function write (text) {
+		function write (texto, text) {
 			var velocidade = 20;
 			var span = document.createElement('span');
 			span.setAttribute('id', 'id'+idCount);
 			document.querySelector('.terminal').appendChild(span);
+			span.textContent = texto;
 
 			var fn = function(j, bool){
 				return function () {
@@ -109,7 +110,7 @@
 			var val = snapshot.val()
 
 			if(val.type == 'message'){
-				write('Anonymous - ' + val.text);
+				write('Anonymous - ', val.text);
 				$('.terminal').animate({ scrollTop: $('.terminal').height() }, 500);
 			}
 			
