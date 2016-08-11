@@ -58,12 +58,17 @@
 
 		var idCount = 0;
 
-		function write (texto, text, vel) {
-			var velocidade = vel || 20;
+		function write (texto, text, vel, bool) {
+			var velocidade = vel || (20 + parseInt(Math.random() * 20));
+			var bool = bool || false;
 			var span = document.createElement('span');
 			span.setAttribute('id', 'id'+idCount);
 			document.querySelector('.terminal').appendChild(span);
 			span.textContent = texto;
+			
+			if (bool) {
+				span.style.textAlign = 'center';	
+			}
 
 			var fn = function(j, bool){
 				return function () {
@@ -81,7 +86,7 @@
 			idCount++;
 		}
 		
-		write('TERMINAL - ', 'WE ARE ANONYMOUS', 400);
+		write('TERMINAL - ', 'WE ARE ANONYMOUS', 400, true);
 
 		document.querySelector('#input').focus();
 
@@ -90,8 +95,8 @@
 		document.querySelector('#input').addEventListener('keypress', function(e){
 			var key = e.which || e.keyCode;
 
-		    if (key === 13) { 
-		      	var texto = this.value;
+		    if (key === 13 && this.value.trim().length > 1) { 
+		      	var texto = this.value.trim();
 				this.value = '';
 				myFire.push({name: 'Anonymous', time: '', text: texto, color : randomColor(), type : 'message'});
 		    }
