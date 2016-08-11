@@ -118,7 +118,7 @@
 
 			if(val.type == 'message'){
 				write('Anonymous - ', val.text);
-				$('.terminal').animate({ scrollTop: $('.terminal').height() }, 500);
+				$('.terminal').animate({ scrollTop: $('.terminal')[0].scrollHeight }, 500);
 			}
 			
 				
