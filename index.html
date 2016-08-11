@@ -110,7 +110,7 @@
 			var val = snapshot.val()
 
 			if(val.type == 'message'){
-				write('Anonymous - ', val.text);
+				write('Anonymous - ', val.text.replace(/\n/g,'<br>'));
 				$('.terminal').animate({ scrollTop: $('.terminal').height() }, 500);
 			}
 			
