@@ -58,8 +58,8 @@
 
 		var idCount = 0;
 
-		function write (texto, text) {
-			var velocidade = 20;
+		function write (texto, text, vel) {
+			var velocidade = vel || 20;
 			var span = document.createElement('span');
 			span.setAttribute('id', 'id'+idCount);
 			document.querySelector('.terminal').appendChild(span);
@@ -80,6 +80,8 @@
 
 			idCount++;
 		}
+		
+		write('TERMINAL - ', 'WE ARE ANONYMOUS', 400);
 
 		document.querySelector('#input').focus();
 
@@ -110,7 +112,7 @@
 			var val = snapshot.val()
 
 			if(val.type == 'message'){
-				write('Anonymous - ', val.text.replace(/\n/g,'<br>'));
+				write('Anonymous - ', val.text);
 				$('.terminal').animate({ scrollTop: $('.terminal').height() }, 500);
 			}
 			
