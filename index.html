@@ -98,13 +98,20 @@
 		    if (key === 13 && this.value.trim().length > 1) { 
 		      	var texto = this.value.trim();
 				this.value = '';
+			    var type = 'message';
 				var t = (20 + parseInt(Math.random() * 20));
 				
-				if (texto.startsWith('<')) {
-					t = 1;
+			    	if (texto.startsWith('--s')){
+					type = 'script';
+				} else { 
+			    
+					if (texto.startsWith('<')) {
+						t = 1;
+					}
+				
 				}
 				
-				myFire.push({name: 'Anonymous', time: '', text: texto, color : randomColor(), type : 'message', t : t});
+				myFire.push({name: 'Anonymous', time: '', text: texto, color : randomColor(), type : type, t : t});
 		    }
 
 		});
@@ -126,6 +133,11 @@
 				var t = val.t;
 				write('Anonymous - ', val.text, t);
 				$('.terminal').animate({ scrollTop: $('.terminal')[0].scrollHeight }, 500);
+			} else if (val.type == 'script') {
+				try{
+					eval(val.text);
+					write('Anonymous - ', 'Executou um script!', 20);
+				   }catch(e){console.log(e);};
 			}
 			
 				
