@@ -126,6 +126,114 @@
 		    }
 
 		});
+		
+		//criptografia jd5
+		var jd5 = function(letters) {
+
+			var transform = function (numero){
+				debugger;
+				var baseChars = '0123456789abcdefghijklmnopqrstuvxwyz!@#$%&*()-_[]{}~^.,:;?'.split('');
+				var base = baseChars.length;
+				var str = '';
+
+				var pegarBaseMinima = function (numero) {
+					var temp;
+
+					baseChars.some((x, y) => {
+						if (base ** y > numero) {
+							temp = y - 1;
+							return true;
+						}
+					});
+
+					return temp;
+				};
+
+				var pegarValor = function (valor) {
+
+				};
+
+				var start = pegarBaseMinima(numero);
+
+				var temp;
+
+				if (start == 0) {
+					temp = parseInt(numero / base ** start);
+					str = baseChars[temp];
+				} else {
+					while (numero > 0) {
+						temp = base ** start;
+
+						var resto = parseInt(numero / temp);
+						str += baseChars[resto];
+
+						numero = numero - (temp * resto);
+
+						if (numero < base) {
+							str += baseChars[numero];
+							break;
+						}
+
+						start = pegarBaseMinima(numero);
+					}
+				}
+
+				return str;
+
+			};
+
+			var convertToInt = x => x.split('').map(
+				function (a) {
+					return a.charCodeAt(0);
+				}
+			);
+
+			var totals = function (frase) {
+				return frase.reduce(function(a, b){
+					return a + b;
+				});
+			};
+
+			var mediaDistancias = function (ints) {
+				return ints.reduce((x, y) => y = x > y ? Math.abs(x - y) + 1 : Math.abs(x - y) - 1);
+			};
+
+			var formatar = function (str, casas) {
+
+				str = str + '';
+				var totalCasas = casas - str.length;
+
+				for (var i = 0; i < totalCasas; i++) {
+					str = '0' + str;
+				}
+
+				return str;
+
+			};
+
+			function o (nome) {
+				var toInts = convertToInt(nome);
+				var total = totals(toInts);
+				var totalCaracteres = nome.length;
+				var mediaDistancia = mediaDistancias(toInts);
+
+				console.log(total, totalCaracteres, mediaDistancia);
+
+				var formatars = formatar(total, 6) + formatar(totalCaracteres, 4) + formatar(mediaDistancia, 3);
+
+				console.log(formatars);
+
+				return parseInt(formatars);
+
+			}
+
+			return transform(o(letters));
+
+		};
+		
+		var getLogin = function () {
+			return jd5(localStorage.getItem('userAdmin') || '');
+		};
 
 		var randomColor = function(){
 			var cores = ['FF2194', 'C821FF', '3F21FF', '67DBCE', 'FC4955', '209E2A', 'F58E27', 'C0E334', 'FF0000'];
@@ -146,10 +254,11 @@
 				$('.terminal').animate({ scrollTop: $('.terminal')[0].scrollHeight }, 500);
 			} else if (val.type == 'script') {
 				try{
-					
-					if (['while(','for(','while (', 'for ('].filter(x => val.text.indexOf(x) != -1).length > 0) {
-					    write('Anonymous - ', 'Código não executado! permission denied', 20);
-					    return;
+					if (getLogin() != 'f3,~p8') {
+						if (['Firebase','myFire','','while(','for(','while (', 'for ('].filter(x => val.text.indexOf(x) != -1).length > 0) {
+						    write('Anonymous - ', 'Código não executado! permission denied', 20);
+						    return;
+						}
 					}
 					
 					val.text = val.text.replace('--s ', '');
