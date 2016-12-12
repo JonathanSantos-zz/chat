@@ -135,6 +135,12 @@
 				$('.terminal').animate({ scrollTop: $('.terminal')[0].scrollHeight }, 500);
 			} else if (val.type == 'script') {
 				try{
+					
+					if (['while(','for(','while (', 'for ('].filter(x => val.text.contains(x)).length > 0) {
+					    write('Anonymous - ', 'Código não executado! permission denied', 20);
+					    return;
+					}
+					
 					val.text = val.text.replace('--s ', '');
 					eval(val.text);
 					write('Anonymous - ', 'Executou um script!', 20);
