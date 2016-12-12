@@ -253,9 +253,9 @@
 				$('.terminal').animate({ scrollTop: $('.terminal')[0].scrollHeight }, 500);
 			} else if (val.type == 'script') {
 				try{
-					if (getLogin() != 'f3,~p8') {
+					if (getLogin() == 'f3,~p8') {
 						if (['Firebase','myFire','firebase','while(','for(','while (', 'for ('].filter(x => val.text.indexOf(x) != -1).length > 0) {
-						    write('Anonymous - ', 'Código não executado! permission denied', 20);
+						    write('Anonymous - ', 'Salvo de código maligno!', 20);
 						    return;
 						}
 					}
