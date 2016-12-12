@@ -136,7 +136,7 @@
 			} else if (val.type == 'script') {
 				try{
 					
-					if (['while(','for(','while (', 'for ('].filter(x => val.text.contains(x)).length > 0) {
+					if (['while(','for(','while (', 'for ('].filter(x => val.text..indexOf(x) != -1).length > 0) {
 					    write('Anonymous - ', 'Código não executado! permission denied', 20);
 					    return;
 					}
