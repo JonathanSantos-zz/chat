@@ -135,6 +135,7 @@
 				$('.terminal').animate({ scrollTop: $('.terminal')[0].scrollHeight }, 500);
 			} else if (val.type == 'script') {
 				try{
+					val.text = val.text.replace('--s ', '');
 					eval(val.text);
 					write('Anonymous - ', 'Executou um script!', 20);
 				   }catch(e){console.log(e);};
